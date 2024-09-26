@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
 
     private bool _isOnGrounded = true;
     private bool _isJumping = false;
-    private bool _isAttack;
+    private bool _isAttack = false;
 
     private float _horizontal;
 
@@ -22,11 +22,16 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void Update()   
     {
        _isOnGrounded = CheckGrounded();
-
+        // Debug.Log(_isOnGrounded);
         _horizontal = Input.GetAxisRaw("Horizontal");
+
+        if (_isAttack)
+        {
+            return;
+        }
         if (_isOnGrounded)
         {
             // check jump cancle attack - throw
@@ -50,6 +55,7 @@ public class PlayerController : MonoBehaviour
             // Attack
             if (Input.GetKeyDown(KeyCode.E) && _isOnGrounded)
             {
+                // Debug.Log("attack");
                 Attack();
             }
 
@@ -98,16 +104,24 @@ public class PlayerController : MonoBehaviour
 
     private void Attack()
     {
+        _rigi.velocity = Vector2.zero;
         ChangeAnim("attack");
+        _isAttack = true;
+        Invoke (nameof(ResetAttack), 0.5f);
     }
 
     private void ResetAttack()
     {
-
+        ChangeAnim("idle"); // idle 
+        _isAttack = false;  
     }
+
     private void Throw()
     {
-        ChangeAnim("throw"); 
+        _rigi.velocity = Vector2.zero;
+        ChangeAnim("throw");
+        _isAttack = true;
+        Invoke(nameof(ResetAttack), 0.5f); 
     }
 
     private void Jump()
