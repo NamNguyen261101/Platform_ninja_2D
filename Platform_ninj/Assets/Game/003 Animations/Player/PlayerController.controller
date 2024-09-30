@@ -65,7 +65,7 @@ AnimatorStateMachine:
     m_Position: {x: 290, y: 0, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2901026407575041737}
-    m_Position: {x: 320, y: 110, z: 0}
+    m_Position: {x: 340, y: 190, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 5366572652829032188}
     m_Position: {x: 330, y: 320, z: 0}
@@ -74,10 +74,10 @@ AnimatorStateMachine:
     m_Position: {x: 380, y: 400, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1541214373294727964}
-    m_Position: {x: 330, y: 470, z: 0}
+    m_Position: {x: 330, y: 480, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1087513276998778174}
-    m_Position: {x: 330, y: 190, z: 0}
+    m_Position: {x: 330, y: 110, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1798594545860717042}
     m_Position: {x: 330, y: 260, z: 0}
@@ -277,7 +277,8 @@ AnimatorState:
   m_Name: Player_Attack
   m_Speed: 1
   m_CycleOffset: 0
-  m_Transitions: []
+  m_Transitions:
+  - {fileID: 2173249779421861830}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -319,6 +320,31 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1101 &2173249779421861830
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: idle
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: -2125163572401932740}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0
+  m_TransitionOffset: 0
+  m_ExitTime: 1
+  m_HasExitTime: 1
+  m_HasFixedDuration: 0
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!1101 &2681012489831871319
 AnimatorStateTransition:
   m_ObjectHideFlags: 1

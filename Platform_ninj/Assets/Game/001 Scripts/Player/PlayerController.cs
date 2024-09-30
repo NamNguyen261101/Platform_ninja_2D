@@ -19,12 +19,15 @@ public class PlayerController : Character
     private float coin = 0;
 
     private Vector3 savePoint;
+
+    [SerializeField] private KunaiController _kunaiPrefab;
+    [SerializeField] private Transform _throwPoint;
+    [SerializeField] private GameObject _attackArea;
+
     void Start()
     {
         _rigi = this.GetComponent<Rigidbody2D>();   
         
-        SavePoint();
-       
     }
 
     // Update is called once per frame
@@ -107,16 +110,23 @@ public class PlayerController : Character
         this.transform.position = savePoint;
 
         ChangeAnim("idle");
+        DeactiveAttack();
+
+        SavePoint();
+
     }
 
     public override void OnDespawn()
     {
         base.OnDespawn();
+
+        OnInit();
     }
 
     protected override void OnDeath()
     {
         base.OnDeath();
+
     }
     private bool CheckGrounded()
     {
@@ -139,6 +149,9 @@ public class PlayerController : Character
         ChangeAnim("attack");
         _isAttack = true;
         Invoke (nameof(ResetAttack), 0.5f);
+
+        ActiveAttack();
+        Invoke(nameof(DeactiveAttack), 0.5f);
     }
 
     private void ResetAttack()
@@ -152,7 +165,9 @@ public class PlayerController : Character
         _rigi.velocity = Vector2.zero;
         ChangeAnim("throw");
         _isAttack = true;
-        Invoke(nameof(ResetAttack), 0.5f); 
+        Invoke(nameof(ResetAttack), 0.5f);
+
+        Instantiate(_kunaiPrefab, _throwPoint.position, _throwPoint.rotation);
     }
 
     private void Jump()
@@ -184,5 +199,15 @@ public class PlayerController : Character
     internal void SavePoint()
     {
         savePoint = this.transform.position;
+    }
+
+    private void ActiveAttack()
+    {
+        _attackArea.SetActive(true);
+    }
+
+    private void DeactiveAttack()
+    {
+        _attackArea.SetActive(false);
     }
 }

@@ -17,6 +17,9 @@ public class EnemyController : Character
     private Character _target;
 
     public Character Target => _target;
+
+    [SerializeField] private GameObject _attackArea;
+
     private void Update()
     {
         if (currentState != null) 
@@ -30,15 +33,19 @@ public class EnemyController : Character
         base.OnInit();
 
         ChangeState(new IdleState());
+        DeactiveAttack();
     }
 
     public override void OnDespawn()
     {
-       
+       base.OnDespawn();
+
+        Destroy(gameObject);
     }
 
     protected override void OnDeath()
     {
+        ChangeState(null);
         base.OnDeath();
     }
 
@@ -89,12 +96,21 @@ public class EnemyController : Character
 
     public void Attack()
     {
-
+        ChangeAnim("attack");
+        ActiveAttack();
+        Invoke(nameof(DeactiveAttack), 0.5f);
     }
 
     public bool IsTargetInRange()
     {
-        return Vector2.Distance(_target.transform.position, this.transform.position) <= _attackRange;
+        if (_target != null && Vector2.Distance(_target.transform.position, this.transform.position) <= _attackRange)
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -112,5 +128,15 @@ public class EnemyController : Character
         this.transform.rotation = isRight ? Quaternion.Euler(Vector3.zero) : Quaternion.Euler(Vector3.up * 100);
     }
 
-    
+    private void ActiveAttack()
+    {
+        _attackArea.SetActive(true);
+    }
+
+    private void DeactiveAttack()
+    {
+        _attackArea.SetActive(false);
+    }
+
+
 }

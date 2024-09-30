@@ -21,8 +21,13 @@ public class PatrolState : IState
         {
             // doi huong enemy toi huong cua player
             enemy.ChangeDirection(enemy.Target.transform.position.x > enemy.transform.position.x); // so sanh truc x cua player neu player lon hon thi huong sang phai
-
-            enemy.Moving(); 
+            if (enemy.IsTargetInRange())
+            {
+                enemy.ChangeState(new AttackState());
+            } else
+            {
+                enemy.Moving();
+            }
         } 
         else
         {

@@ -27,7 +27,9 @@ public class Character : MonoBehaviour
 
     protected virtual void OnDeath()
     {
+        ChangeAnim("die");
 
+        Invoke(nameof(OnDespawn), 2f);
     }
 
     protected void ChangeAnim(string animName)
