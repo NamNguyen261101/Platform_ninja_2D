@@ -16,12 +16,24 @@ public class PatrolState : IState
     public void OnExecute(EnemyController enemy)
     {
         timer += Time.deltaTime;
-        if (timer > randomTime)
+
+        if (enemy.Target != null)
         {
-            enemy.Moving();
-        } else
+            // doi huong enemy toi huong cua player
+            enemy.ChangeDirection(enemy.Target.transform.position.x > enemy.transform.position.x); // so sanh truc x cua player neu player lon hon thi huong sang phai
+
+            enemy.Moving(); 
+        } 
+        else
         {
-            enemy.ChangeState(new IdleState());
+            if (timer > randomTime)
+            {
+                enemy.Moving();
+            }
+            else
+            {
+                enemy.ChangeState(new IdleState());
+            }
         }
     }
 

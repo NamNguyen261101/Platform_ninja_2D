@@ -14,6 +14,9 @@ public class EnemyController : Character
 
     private bool _isRight = true;
 
+    private Character _target;
+
+    public Character Target => _target;
     private void Update()
     {
         if (currentState != null) 
@@ -54,6 +57,23 @@ public class EnemyController : Character
         }
     }
 
+    internal void SetTarget(Character character)
+    {
+        this._target = character;
+
+        if (IsTargetInRange())
+        {
+            ChangeState(new AttackState());
+        }
+        else if (Target != null)
+        {
+            ChangeState(new PatrolState());
+        } else
+        {
+            ChangeState(new IdleState());
+        }
+    }
+
     public void Moving()
     {
         ChangeAnim("run");
@@ -74,7 +94,7 @@ public class EnemyController : Character
 
     public bool IsTargetInRange()
     {
-        return false;
+        return Vector2.Distance(_target.transform.position, this.transform.position) <= _attackRange;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -85,10 +105,12 @@ public class EnemyController : Character
         }
     }
 
-    private void ChangeDirection(bool isRight)
+    public void ChangeDirection(bool isRight)
     {
         this._isRight = isRight;
 
         this.transform.rotation = isRight ? Quaternion.Euler(Vector3.zero) : Quaternion.Euler(Vector3.up * 100);
     }
+
+    
 }
