@@ -22,7 +22,7 @@ public class EnemyController : Character
 
     private void Update()
     {
-        if (currentState != null) 
+        if (currentState != null && !_isDead) 
         {
             currentState.OnExecute(this);
         }

@@ -121,6 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigi: {fileID: 762812349193099184}
   _speed: 5
+  _hitVFX: {fileID: 2611695944492780665, guid: b9babdeec28d5de45a5ea23fe4a92306, type: 3}
 --- !u!1 &5441533624291103980
 GameObject:
   m_ObjectHideFlags: 0

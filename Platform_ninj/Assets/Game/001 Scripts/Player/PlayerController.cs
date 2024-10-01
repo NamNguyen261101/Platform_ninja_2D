@@ -189,7 +189,7 @@ public class PlayerController : Character
 
         if (collision.tag == "DeathZone")
         {
-            _isDeath = true;
+            
             ChangeAnim("die");
 
             Invoke(nameof(OnInit), 1f); // khoi tao

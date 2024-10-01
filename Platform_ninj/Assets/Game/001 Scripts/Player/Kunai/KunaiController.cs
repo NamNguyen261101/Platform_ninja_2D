@@ -7,6 +7,8 @@ public class KunaiController : MonoBehaviour
     [SerializeField] private Rigidbody2D _rigi;
     [SerializeField] private float _speed = 5f;
 
+    [SerializeField] private GameObject _hitVFX;
+
     void Start()
     {
         OnInit();
@@ -28,6 +30,7 @@ public class KunaiController : MonoBehaviour
         if (collision.tag == "Enemy")
         {
             collision.GetComponent<Character>().OnHit(30f);
+            Instantiate(_hitVFX, transform.position, transform.rotation);
             OnDespawn();
         }
     }
