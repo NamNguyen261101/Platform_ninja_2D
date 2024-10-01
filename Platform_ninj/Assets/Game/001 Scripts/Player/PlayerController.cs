@@ -23,6 +23,7 @@ public class PlayerController : Character
     [SerializeField] private KunaiController _kunaiPrefab;
     [SerializeField] private Transform _throwPoint;
     [SerializeField] private GameObject _attackArea;
+   
 
     void Start()
     {
@@ -209,5 +210,10 @@ public class PlayerController : Character
     private void DeactiveAttack()
     {
         _attackArea.SetActive(false);
+    }
+
+    public void SetMove(float horizontal)
+    {
+
     }
 }

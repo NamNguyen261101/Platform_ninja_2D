@@ -7,6 +7,9 @@ public class Character : MonoBehaviour
 {
     private float hp;
     [SerializeField] private Animator _anim;
+    [SerializeField] protected HealthBar _healthBar;
+
+    [SerializeField] protected CombatTech combatTechPrefabs;
     public bool _isDead => hp <= 0;
 
     private string _currentAnim;
@@ -18,6 +21,7 @@ public class Character : MonoBehaviour
     public virtual void OnInit()
     {
         hp = 100;
+        _healthBar.OnInit(100, transform); // 
     }
 
     public virtual void OnDespawn()
@@ -52,8 +56,12 @@ public class Character : MonoBehaviour
 
             if (_isDead)
             {
+                hp = 0;
                 OnDeath();
             }
+
+            _healthBar.SetNewHp(hp);
+            Instantiate(combatTechPrefabs, transform.position + Vector3.up, Quaternion.identity).OnInit(damage);
         }
     }
 

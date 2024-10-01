@@ -39,7 +39,7 @@ public class EnemyController : Character
     public override void OnDespawn()
     {
        base.OnDespawn();
-
+        Destroy(_healthBar.gameObject);
         Destroy(gameObject);
     }
 
